@@ -1,0 +1,7 @@
+name: SeasonExo
+version: '${project.version}'
+main: com.cactt4ck.seasonexo.SeasonExo
+api-version: 1.18
+depend: [PlaceholderAPI]
+authors: [ CacTt4ck ]
+description: Random loot on map at random location
