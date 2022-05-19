@@ -25,7 +25,7 @@ public final class SeasonExo extends JavaPlugin {
 
         config = YamlConfiguration.loadConfiguration(configFile);
 
-        Bukkit.getScheduler().runTaskTimer(this, new ChestApparition(), 0, 20*10);
+        Bukkit.getScheduler().runTaskTimer(this, new ChestApparition(), 20*5, 20*30);
 
     }
 

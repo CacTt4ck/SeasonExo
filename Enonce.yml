@@ -1,24 +1,20 @@
 Description:
-  Ce plugin feras spawn des coffre avec un contenue aléatoire 
-  (Pris dans une liste de lots prédéfinis en configurations),
-  à une locations aléatoire dans une liste prédéfinis en configurations.
-  Lorsque le coffre est vidée il disparaît après un temps configurable il disparais vide ou pas.
+  Ce plugin fera spawn des coffres avec un contenu aléatoire (Pris dans une liste de lots prédéfinie en configuration), 
+  à une location aléatoire dans une liste prédéfinie en configuration. Lorsque le coffre est vidé, il disparaît après 
+  un temps configurable qu’il soit vide ou non.
 
-
-Plus d’information:
-- Des annonce seront faite automatiquement toute 30 secondes puis 10 secondes avant la disparitions automatique
-- Commande de reload
-- Seulement une personne peut ouvrir le coffre en simultanée
-- Commande admin pour supprimer le coffre
-- Placeholder via PlaceholderAPI
-- Si le coffre est apparue
-- Le temps restant avant la suppression du coffre
-- Si un joueur à le coffre ouvert
-- Pouvoir ajouter des loot possible au coffre via une commande avec un système de chance (sur 100)
-- Pouvoir ajouter des positions de spawn au coffre via une commande
-- Commande admin pour pouvoir fermer le coffre au joueur qui la actuellement ouvert
-- Tout doit être configurable, les messages, les loot, les positions.
-
-
-- Les source du plugins devront être push sur github (Ajouter contact.tope95@gmail.com) au répo
-- Il faut impérativement tester le plugin de A à Z pour dire que celui-ci est fini.
+Plus d’informations:
+  Des annonces seront faites automatiquement toute 30 secondes puis 10 secondes avant la disparitions automatique
+  Commande de reload
+  Seulement une personne peut ouvrir le coffre en simultanée
+  Commande admin pour supprimer le coffre
+  Placeholder via PlaceholderAPI
+  Si le coffre est apparue
+  Le temps restant avant la suppression du coffre
+  Si un joueur à le coffre ouvert
+  Pouvoir ajouter des loot possible au coffre via une commande avec un système de chance (sur 100)
+  Pouvoir ajouter des positions de spawn au coffre via une commande
+  Commande admin pour pouvoir fermer le coffre au joueur qui la actuellement ouvert
+  Tout doit être configurable, les messages, les loot, les positions.
+  Les source du plugins devront être push sur github (Ajouter contact.tope95@gmail.com) au répo
+  Il faut impérativement tester le plugin de A à Z pour dire que celui-ci est fini.
