@@ -1,6 +1,7 @@
 package com.cactt4ck.seasonexo;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +26,11 @@ public final class SeasonExo extends JavaPlugin {
 
         config = YamlConfiguration.loadConfiguration(configFile);
 
-        Bukkit.getScheduler().runTaskTimer(this, new ChestApparition(), 20*5, 20*30);
+        TabExecutor command1 = new Commands(this);
+        this.getCommand("event").setExecutor(command1);
+        this.getCommand("event").setTabCompleter(command1);
+
+
 
     }
 

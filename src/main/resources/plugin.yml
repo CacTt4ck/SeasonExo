@@ -5,3 +5,10 @@ api-version: 1.18
 depend: [PlaceholderAPI]
 authors: [ CacTt4ck ]
 description: Random loot on map at random location
+commands:
+  event:
+    permission: seasonexo.event
+    usage: /command <start|stop>
+    description: Root command for event management.
+    aliases:
+      - evt
