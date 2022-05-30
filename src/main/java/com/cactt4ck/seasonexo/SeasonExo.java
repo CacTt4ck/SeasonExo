@@ -5,6 +5,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -26,12 +27,11 @@ public final class SeasonExo extends JavaPlugin {
 
         config = YamlConfiguration.loadConfiguration(configFile);
 
-        TabExecutor command1 = new Commands(this);
+        ChestApparition chestApparition = new ChestApparition(this);
+        TabExecutor command1 = new Commands(this, chestApparition);
         this.getCommand("event").setExecutor(command1);
         this.getCommand("event").setTabCompleter(command1);
-
-
-
+        Bukkit.getPluginManager().registerEvents(chestApparition, this);
     }
 
     @Override
@@ -39,6 +39,12 @@ public final class SeasonExo extends JavaPlugin {
         log.info("§6Season Exercise Disabled!");
         Bukkit.getScheduler().cancelTasks(this);
 
+    }
+
+    @NotNull
+    @Override
+    public FileConfiguration getConfig() {
+        return super.getConfig();
     }
 
     /*public static void saveJobs() {

@@ -20,9 +20,9 @@ public class Commands implements TabExecutor {
     boolean eventRunning;
     private ChestApparition chestApparition;
 
-    public Commands(JavaPlugin main) {
+    public Commands(JavaPlugin main, ChestApparition chestApparition) {
         this.main = main;
-        chestApparition = new ChestApparition(this.main);
+        this.chestApparition = chestApparition;
     }
 
     @Override
@@ -58,6 +58,11 @@ public class Commands implements TabExecutor {
 
             } else if (args[0].equalsIgnoreCase("closeinv")) {
                 this.chestApparition.close();
+                return true;
+
+            } else if (args[0].equalsIgnoreCase("delete")) {
+                this.chestApparition.delete();
+                return true;
             }
         }
         return false;
@@ -67,7 +72,7 @@ public class Commands implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (cmd.getName().equalsIgnoreCase("event"))
-            return Arrays.asList("start", "stop", "closeinv");
+            return Arrays.asList("start", "stop", "closeinv", "delete");
         return null;
     }
 }

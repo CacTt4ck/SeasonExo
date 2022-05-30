@@ -1,7 +1,11 @@
 package com.cactt4ck.seasonexo;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +37,14 @@ public class Utils {
                 return maxY;
         }
         return 0;
+    }
+
+    public static Inventory generateLoot() {
+        Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, "§cLoot");
+        inv.addItem(new ItemStack(Material.IRON_AXE));
+        inv.addItem(new ItemStack(Material.DIAMOND, 32));
+        inv.addItem(new ItemStack(Material.GOLDEN_SHOVEL));
+        return inv;
     }
 
 }

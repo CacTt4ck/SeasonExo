@@ -13,8 +13,11 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,6 +32,7 @@ public class ChestApparition implements Runnable, Listener {
     private int timer = 2*30;
     private World world;
     private Chest chest;
+    private Inventory lootChest;
 
     public ChestApparition(JavaPlugin main) {
         this.main = main;
@@ -63,7 +67,7 @@ public class ChestApparition implements Runnable, Listener {
         this.chestLocation = new Location(world, x, y, z);
         this.chestLocation.getBlock().setType(Material.CHEST);
         chest = (Chest) chestLocation.getBlock().getState();
-        chest.getBlockInventory().addItem(new ItemStack(Material.IRON_AXE));
+        lootChest = Utils.generateLoot();
 
         this.message = new TextComponent("Un coffre est apparu aux coordonnées ");
         this.message.setColor(ChatColor.RED);
@@ -78,24 +82,31 @@ public class ChestApparition implements Runnable, Listener {
         chestSpawned = true;
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player p = event.getPlayer();
-        if (!(event.getClickedBlock().getState() instanceof Chest))
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock().getType() != Material.CHEST)
             return;
-        if (event.getClickedBlock().getState() == chest) {
+
+        Location loc = event.getClickedBlock().getLocation();
+        if (loc.getBlockX() == chestLocation.getBlockX() && loc.getBlockY() == chestLocation.getBlockY() && loc.getBlockZ() == chestLocation.getBlockZ()) {
             if (!chestOpened) {
+                p.sendMessage("Opened chest!");
+                event.setCancelled(true);
+                p.openInventory(lootChest);
                 chestOpened = true;
                 return;
             }
+            p.sendMessage("Ce coffre est déjà ouvert par un autre joueur!");
             event.setCancelled(true);
-            p.sendMessage("Ce coffre est déjà ouvert!");
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-
+        if (event.getInventory() != lootChest)
+            return;
+        chestOpened = false;
     }
 
     public void stop() {
@@ -105,13 +116,18 @@ public class ChestApparition implements Runnable, Listener {
     }
 
     public void close() {
-        chestLocation.getBlock().setType(Material.AIR);
-        chestSpawned = false;
-        resetTimer();
+        chest.close();
+    }
+
+    public void delete() {
+        for (Player p : Bukkit.getOnlinePlayers())
+            if (p.getOpenInventory().getTopInventory() == lootChest)
+                p.closeInventory();
     }
 
     private void resetTimer() {
         timer = 2*30;
     }
+
 
 }
