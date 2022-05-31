@@ -116,13 +116,13 @@ public class ChestApparition implements Runnable, Listener {
     }
 
     public void close() {
-        chest.close();
-    }
-
-    public void delete() {
         for (Player p : Bukkit.getOnlinePlayers())
             if (p.getOpenInventory().getTopInventory() == lootChest)
                 p.closeInventory();
+    }
+
+    public void delete() {
+
     }
 
     private void resetTimer() {
