@@ -10,5 +10,8 @@ commands:
     permission: seasonexo.event
     usage: /command <start|stop>
     description: Root command for event management.
-    aliases:
-      - evt
+
+  seasonevent:
+    permission: seasonexo.seasonevent
+    usage: /<command> <reload>
+    description: Reload plugin config.

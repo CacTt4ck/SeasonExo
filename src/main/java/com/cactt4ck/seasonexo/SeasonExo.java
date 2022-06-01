@@ -1,5 +1,6 @@
 package com.cactt4ck.seasonexo;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,10 +36,25 @@ public final class SeasonExo extends JavaPlugin {
     }
 
     @Override
+    public void reloadConfig() {
+        super.reloadConfig();
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+            log.info("§aPlaceholderAPI present!");
+        else {
+            Bukkit.getPluginManager().disablePlugin(this);
+            log.info("§aPlaceholderAPI not present! Disabling SeasonExo...");
+        }
+    }
+
+    @Override
     public void onDisable() {
         log.info("§6Season Exercise Disabled!");
         Bukkit.getScheduler().cancelTasks(this);
-
     }
 
     @NotNull
