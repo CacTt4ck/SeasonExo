@@ -30,8 +30,8 @@ public final class SeasonExo extends JavaPlugin {
 
         ChestApparition chestApparition = new ChestApparition(this);
         TabExecutor command1 = new Commands(this, chestApparition);
-        this.getCommand("event").setExecutor(command1);
-        this.getCommand("event").setTabCompleter(command1);
+        this.getCommand("seasonevent").setExecutor(command1);
+        this.getCommand("seasonevent").setTabCompleter(command1);
         Bukkit.getPluginManager().registerEvents(chestApparition, this);
     }
 

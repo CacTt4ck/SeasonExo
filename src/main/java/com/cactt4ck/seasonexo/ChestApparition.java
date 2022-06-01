@@ -59,11 +59,16 @@ public class ChestApparition implements Runnable, Listener {
         if (chestSpawned)
             return;
 
-        this.world = Bukkit.getWorld("world");
+        this.world = Bukkit.getWorld(main.getConfig().getString("locations.1.world"));
 
-        int x = new Random().nextInt(-100, 100),
+        /*int x = new Random().nextInt(-100, 100),
                 z = new Random().nextInt(-100, 100),
+                y = Utils.getHighestFlatSurface(world, x, z) + 1;*/
+
+        int x = main.getConfig().getInt("locations.1.x"),
+                z = main.getConfig().getInt("locations.1.z"),
                 y = Utils.getHighestFlatSurface(world, x, z) + 1;
+
         this.chestLocation = new Location(world, x, y, z);
         this.chestLocation.getBlock().setType(Material.CHEST);
         chest = (Chest) chestLocation.getBlock().getState();
@@ -122,7 +127,8 @@ public class ChestApparition implements Runnable, Listener {
     }
 
     public void delete() {
-
+        this.close();
+        this.stop();
     }
 
     private void resetTimer() {

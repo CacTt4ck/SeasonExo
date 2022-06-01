@@ -32,21 +32,10 @@ public class Commands implements TabExecutor {
             return false;
         Player p = (Player) sender;
 
-        if (cmd.getName().equalsIgnoreCase("event")) {
+        if (cmd.getName().equalsIgnoreCase("seasonevent")) {
             if (args.length != 1)
                 return false;
-            final String command = args[0].toLowerCase();
 
-            switch (command) {
-                case "start":
-                    break;
-                case "stop":
-                    break;
-                case "closeinv":
-                    break;
-                case "delete":
-                    break;
-            }
             if (args[0].equalsIgnoreCase("start")) {
                 if (eventRunning) {
                     p.sendMessage(ChatColor.RED + "Event is still running!");
@@ -69,33 +58,36 @@ public class Commands implements TabExecutor {
                 return true;
 
             } else if (args[0].equalsIgnoreCase("closeinv")) {
+                if (!eventRunning) {
+                    p.sendMessage(ChatColor.RED + "No event running!");
+                    return true;
+                }
                 this.chestApparition.close();
                 return true;
 
             } else if (args[0].equalsIgnoreCase("delete")) {
+                if (!eventRunning) {
+                    p.sendMessage(ChatColor.RED + "No event running!");
+                    return true;
+                }
                 this.chestApparition.delete();
                 return true;
-            }
-        } else if (cmd.getName().equalsIgnoreCase("seasonevent")) {
-            if (args.length != 1)
-                return false;
 
-            if (args[0].equalsIgnoreCase("reload")) {
+            } else if (args[0].equalsIgnoreCase("reload")) {
                 main.reloadConfig();
-                p.sendMessage("Season Event reload complete!");
+                p.sendMessage(ChatColor.GREEN + "Season Event reload complete!");
                 return true;
             }
         }
+
         return false;
     }
 
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (cmd.getName().equalsIgnoreCase("event"))
-            return Arrays.asList("start", "stop", "closeinv", "delete");
-        else if (cmd.getName().equalsIgnoreCase("seasonevent"))
-            return Collections.singletonList("reload");
+        if (cmd.getName().equalsIgnoreCase("seasonevent") || cmd.getName().equalsIgnoreCase("se"))
+            return Arrays.asList("start", "stop", "closeinv", "delete", "reload");
 
         return null;
     }

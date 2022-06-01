@@ -6,12 +6,11 @@ depend: [PlaceholderAPI]
 authors: [ CacTt4ck ]
 description: Random loot on map at random location
 commands:
-  event:
-    permission: seasonexo.event
-    usage: /command <start|stop>
-    description: Root command for event management.
 
   seasonevent:
     permission: seasonexo.seasonevent
-    usage: /<command> <reload>
-    description: Reload plugin config.
+    usage: /<command> <start|stop|reload|closeinv|delete>
+    description: Root command for event management.
+    aliases:
+      - se
+      - sevt
