@@ -17,7 +17,6 @@ import java.util.List;
 public class Commands implements TabExecutor {
 
     JavaPlugin main;
-    private int task;
     boolean eventRunning;
     private ChestApparition chestApparition;
 
