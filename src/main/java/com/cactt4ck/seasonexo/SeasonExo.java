@@ -57,6 +57,11 @@ public final class SeasonExo extends JavaPlugin {
         Bukkit.getScheduler().cancelTasks(this);
     }
 
+    @Override
+    public void saveConfig() {
+        super.saveConfig();
+    }
+
     @NotNull
     @Override
     public FileConfiguration getConfig() {

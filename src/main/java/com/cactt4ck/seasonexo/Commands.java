@@ -2,9 +2,11 @@ package com.cactt4ck.seasonexo;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class Commands implements TabExecutor {
 
@@ -32,7 +35,7 @@ public class Commands implements TabExecutor {
         Player p = (Player) sender;
 
         if (cmd.getName().equalsIgnoreCase("seasonevent")) {
-            if (args.length != 1)
+            if (args.length < 1 || args.length > 4)
                 return false;
 
             if (args[0].equalsIgnoreCase("start")) {
@@ -76,6 +79,28 @@ public class Commands implements TabExecutor {
                 main.reloadConfig();
                 p.sendMessage(ChatColor.GREEN + "Season Event reload complete!");
                 return true;
+
+            } else if (args[0].equalsIgnoreCase("addpos")) {
+                if (args.length == 4) { // /se addpos x y z
+
+                    return true;
+
+                } else if (args.length == 1) { // /se addpos
+                    final Location playerLoc = p.getLocation();
+                    ConfigurationSection section = main.getConfig().getConfigurationSection("locations");
+                    Set<String> keys = section.getKeys(false);
+                    final int maxIndex = keys.size() + 1;
+
+                    section.set(maxIndex + ".world", playerLoc.getWorld().getName());
+                    section.set(maxIndex + ".x", playerLoc.getBlockX());
+                    section.set(maxIndex + ".z", playerLoc.getBlockZ());
+
+                    main.saveConfig();
+                    main.reloadConfig();
+                    p.sendMessage("§aPosition added!");
+
+                    return true;
+                }
             }
         }
 
@@ -85,8 +110,8 @@ public class Commands implements TabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (cmd.getName().equalsIgnoreCase("seasonevent") || cmd.getName().equalsIgnoreCase("se"))
-            return Arrays.asList("start", "stop", "closeinv", "delete", "reload");
+        if (cmd.getName().equalsIgnoreCase("seasonevent") || cmd.getName().equalsIgnoreCase("se") || cmd.getName().equalsIgnoreCase("sevt"))
+            return Arrays.asList("start", "stop", "closeinv", "delete", "reload", "addpos");
 
         return null;
     }

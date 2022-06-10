@@ -5,7 +5,17 @@
 ######################
 
 locations:
-  1:
+  "1":
     world: "world"
     x: 100
     z: 100
+
+loots:
+  "1":
+    - golden_sword, 1
+    - diamond, 40
+  "2":
+    - egg, 28
+    - ender_eye, 6
+    - iron_axe, 1
+    - diamond_pickaxe, 1

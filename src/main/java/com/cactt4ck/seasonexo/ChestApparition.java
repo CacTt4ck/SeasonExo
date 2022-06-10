@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Chest;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
+import java.util.Set;
 
 public class ChestApparition implements Runnable, Listener {
 
@@ -59,20 +61,26 @@ public class ChestApparition implements Runnable, Listener {
         if (chestSpawned)
             return;
 
-        this.world = Bukkit.getWorld(main.getConfig().getString("locations.1.world"));
+        ConfigurationSection section = main.getConfig().getConfigurationSection("locations");
+        Set<String> keys = section.getKeys(false);
+        final int maxIndex = keys.size() + 1;
+
+        int choice = new Random().nextInt(1, maxIndex);
+
+        this.world = Bukkit.getWorld(main.getConfig().getString("locations." + choice + ".world"));
 
         /*int x = new Random().nextInt(-100, 100),
                 z = new Random().nextInt(-100, 100),
                 y = Utils.getHighestFlatSurface(world, x, z) + 1;*/
 
-        int x = main.getConfig().getInt("locations.1.x"),
-                z = main.getConfig().getInt("locations.1.z"),
+        int x = main.getConfig().getInt("locations." + choice + ".x"),
+                z = main.getConfig().getInt("locations." + choice + ".z"),
                 y = Utils.getHighestFlatSurface(world, x, z) + 1;
 
         this.chestLocation = new Location(world, x, y, z);
         this.chestLocation.getBlock().setType(Material.CHEST);
         chest = (Chest) chestLocation.getBlock().getState();
-        lootChest = Utils.generateLoot();
+        lootChest = Utils.generateLoot(main);
 
         this.message = new TextComponent("Un coffre est apparu aux coordonnées ");
         this.message.setColor(ChatColor.RED);

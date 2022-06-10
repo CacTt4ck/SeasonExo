@@ -3,12 +3,16 @@ package com.cactt4ck.seasonexo;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class Utils {
 
@@ -39,11 +43,26 @@ public class Utils {
         return 0;
     }
 
-    public static Inventory generateLoot() {
+    public static Inventory generateLoot(JavaPlugin main) {
         Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, "§cLoot");
-        inv.addItem(new ItemStack(Material.IRON_AXE));
-        inv.addItem(new ItemStack(Material.DIAMOND, 32));
-        inv.addItem(new ItemStack(Material.GOLDEN_SHOVEL));
+
+        ConfigurationSection section = main.getConfig().getConfigurationSection("loots");
+        Set<String> keys = section.getKeys(false);
+        final int maxIndex = keys.size() + 1;
+        int choice = new Random().nextInt(1, maxIndex);
+
+        section.getStringList(String.valueOf(choice)).forEach(material -> {
+            int pos;
+            do {
+                pos = new Random().nextInt(0, 27);
+
+            } while (inv.getItem(pos) != null);
+
+            String item = material.split(",")[0].toUpperCase();
+            int quantity = Integer.parseInt(material.split(",")[1].trim());
+
+            inv.setItem(pos, new ItemStack(Material.valueOf(item), quantity));
+        });
         return inv;
     }
 
