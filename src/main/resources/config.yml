@@ -1,15 +1,13 @@
-######################
-#--------------------#
-#---Season-Sky-Exo---#
-#--------------------#
-######################
+# Season-Sky-Exo
 
+# All locations where a chest can randomly spawn
 locations:
   "1":
     world: "world"
     x: 100
     z: 100
 
+# All different loot that can spawn in chest
 loots:
   "1":
     - golden_sword, 1

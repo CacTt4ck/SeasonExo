@@ -81,16 +81,24 @@ public class Commands implements TabExecutor {
                 return true;
 
             } else if (args[0].equalsIgnoreCase("addpos")) {
-                if (args.length == 4) { // /se addpos x y z
+                final Location playerLoc = p.getLocation();
+                ConfigurationSection section = main.getConfig().getConfigurationSection("locations");
+                Set<String> keys = section.getKeys(false);
+                final int maxIndex = keys.size() + 1;
+
+
+                if (args.length == 3) { // /se addpos x z
+                    section.set(maxIndex + ".world", playerLoc.getWorld().getName());
+                    section.set(maxIndex + ".x", Integer.parseInt(args[1]));
+                    section.set(maxIndex + ".z", Integer.parseInt(args[2]));
+
+                    main.saveConfig();
+                    main.reloadConfig();
+                    p.sendMessage("§aPosition added!");
 
                     return true;
 
                 } else if (args.length == 1) { // /se addpos
-                    final Location playerLoc = p.getLocation();
-                    ConfigurationSection section = main.getConfig().getConfigurationSection("locations");
-                    Set<String> keys = section.getKeys(false);
-                    final int maxIndex = keys.size() + 1;
-
                     section.set(maxIndex + ".world", playerLoc.getWorld().getName());
                     section.set(maxIndex + ".x", playerLoc.getBlockX());
                     section.set(maxIndex + ".z", playerLoc.getBlockZ());
