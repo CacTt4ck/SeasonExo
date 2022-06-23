@@ -58,10 +58,13 @@ public class Utils {
 
             } while (inv.getItem(pos) != null);
 
-            String item = material.split(",")[0].toUpperCase();
-            int quantity = Integer.parseInt(material.split(",")[1].trim());
+            String[] splitString = material.split(",");
+            String item = splitString[0].toUpperCase();
+            int quantity = Integer.parseInt(splitString[1].trim()),
+                    chanceToSpawn = Integer.parseInt(splitString[2].trim());
 
-            inv.setItem(pos, new ItemStack(Material.valueOf(item), quantity));
+            if (new Random().nextInt(1, 101) <= chanceToSpawn)
+                inv.setItem(pos, new ItemStack(Material.valueOf(item), quantity));
         });
         return inv;
     }

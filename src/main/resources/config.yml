@@ -1,5 +1,30 @@
 # Season-Sky-Exo
 
+# Messages and announcements
+messages:
+  event_start: # Event is about to start
+    content: ""
+    color: §c
+  event_end: # Event is about to end
+    content: ""
+    color: §c
+  chest_spawned: # Chest has spawned
+    content: ""
+    color: §c
+  chest_already_open: # Chest is opened by another player
+    content: ""
+    color: §c
+  chest_despawn_10_seconds: # If timer is less than 10 seconds
+    content: ""
+    color: §c
+  chest_despawn_min_seconds: # If timer is displayed with minutes and seconds
+    content: ""
+    color: §c
+  chest_despawn_seconds: # If timer is displayed only with minutes
+    content: ""
+    color: §c
+
+
 # All locations where a chest can randomly spawn
 locations:
   "1":
@@ -8,12 +33,13 @@ locations:
     z: 100
 
 # All different loot that can spawn in chest
+# Loot are in specific configuration that is [<material>, <quantity>, <chance to Spawn in percentage>]
 loots:
   "1":
-    - golden_sword, 1
-    - diamond, 40
+    - golden_sword, 1, 50
+    - diamond, 40, 25
   "2":
-    - egg, 28
-    - ender_eye, 6
-    - iron_axe, 1
-    - diamond_pickaxe, 1
+    - egg, 28, 26
+    - ender_eye, 6, 54
+    - iron_axe, 1, 98
+    - diamond_pickaxe, 1, 10
